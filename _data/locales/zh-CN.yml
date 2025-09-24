@@ -82,9 +82,3 @@ df:
 categories:
   category_measure: 个分类
   post_measure: 篇文章
-
-contact:
-  - service: github
-    url: https://github.com/Cherry-CJQ
-  - service: email
-    url: mailto:jiaqichen216@126.com
