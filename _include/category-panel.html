@@ -1,4 +1,4 @@
-{% comment %} 智能多级分类面板 {% endcomment %}
+{% comment %} 纯 Liquid 拆斜杠多级树 {% endcomment %}
 {% assign flat = site.categories | map: 'first' | sort %}
 {% assign tree = '' | split: '' %}
 
@@ -6,22 +6,26 @@
   {% assign parts = path | split: '/' %}
   {% assign cursor = tree %}
   {% for part in parts %}
-    {% assign idx = cursor | map: 'name' | index_of: part %}
-    {% if idx == -1 %}
-      {% assign node = part | hash_with_name %}
-      {% assign cursor = cursor | push: node %}
+    {% comment %} 原生查找：遍历 cursor 看是否已存在同名节点 {% endcomment %}
+    {% assign found = false %}
+    {% for n in cursor %}
+      {% if n.name == part %}{% assign found = true %}{% break %}{% endif %}
+    {% endfor %}
+
+    {% if found == false %}
+      {% assign new_node = '' | split: '' %}
+      {% assign new_node = new_node | push: part | map: 'name' %}
+      {% assign new_node = new_node | push: '' | map: 'children' %}
+      {% assign new_node = new_node | push: path | map: 'full_path' %}
+      {% assign cursor = cursor | push: new_node %}
     {% endif %}
-    {% assign cursor = cursor[last].children %}
+
+    {% comment %} 下移指针到 children {% endcomment %}
+    {% for i in (0..cursor.size) %}
+      {% if cursor[i].name == part %}
+        {% assign cursor = cursor[i].children %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
   {% endfor %}
 {% endfor %}
-
-<div class="card category-card">
-  <div class="card-header">
-    {{ site.data.locales[include.lang].categories.name }}
-  </div>
-  <div class="card-body">
-    <ul class="list-group list-group-flush">
-      {% include nested-cat-renderer.html nodes=tree %}
-    </ul>
-  </div>
-</div>
