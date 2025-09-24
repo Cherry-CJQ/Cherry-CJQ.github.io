@@ -90,3 +90,9 @@ categories:
   post_measure:
     singular: post
     plural: posts
+
+contact:
+  - service: github
+    url: https://github.com/Cherry-CJQ
+  - service: email
+    url: mailto:jiaqichen216@126.com
