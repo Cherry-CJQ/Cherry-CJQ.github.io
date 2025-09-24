@@ -3,7 +3,7 @@
     <a href="{{ '/categories/' | append: node.full_path | slugify | relative_url }}"
        class="d-flex justify-content-between">
       <span>{{ node.name }}</span>
-      <span class="badge">{{ node.post_count }}</span>
+      <span class="badge">{{ site.categories[node.full_path].size }}</span>
     </a>
     {% if node.children.size > 0 %}
       <ul class="list-group mt-2">

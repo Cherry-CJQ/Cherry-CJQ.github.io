@@ -1,7 +1,7 @@
 ---
 title: 南大软院 | 入学感受
 date: 2025-09-24 15:00:00 +0800
-categories: [南大软院]
+categories: [南京大学/南大软院]
 tags: 
   - 随笔
   - NJU

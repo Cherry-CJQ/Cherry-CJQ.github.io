@@ -1,0 +1,27 @@
+{% comment %} 智能多级分类面板 {% endcomment %}
+{% assign flat = site.categories | map: 'first' | sort %}
+{% assign tree = '' | split: '' %}
+
+{% for path in flat %}
+  {% assign parts = path | split: '/' %}
+  {% assign cursor = tree %}
+  {% for part in parts %}
+    {% assign idx = cursor | map: 'name' | index_of: part %}
+    {% if idx == -1 %}
+      {% assign node = part | hash_with_name %}
+      {% assign cursor = cursor | push: node %}
+    {% endif %}
+    {% assign cursor = cursor[last].children %}
+  {% endfor %}
+{% endfor %}
+
+<div class="card category-card">
+  <div class="card-header">
+    {{ site.data.locales[include.lang].categories.name }}
+  </div>
+  <div class="card-body">
+    <ul class="list-group list-group-flush">
+      {% include nested-cat-renderer.html nodes=tree %}
+    </ul>
+  </div>
+</div>
