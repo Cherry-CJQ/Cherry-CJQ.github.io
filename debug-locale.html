@@ -1,0 +1,8 @@
+---
+layout: none
+---
+{%- assign cnt = site.data.locales | size -%}
+Locales count = {{ cnt }}<br>
+{%- for l in site.data.locales -%}
+  {{ l[0] }}<br>
+{%- endfor -%}
