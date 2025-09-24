@@ -223,3 +223,10 @@ jekyll-archives:
 
 i18n:
   langs: [en, zh-CN]
+
+sidebar:
+  components:
+    - about
+    - category-panel-smart   # 改用智能树
+    - tag-panel
+    - archive-panel

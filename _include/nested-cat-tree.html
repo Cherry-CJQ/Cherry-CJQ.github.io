@@ -1,0 +1,18 @@
+{% comment %} 把 site.categories 的「斜杠路径」拆成树 {% endcomment %}
+{% assign flat = site.categories | map: 'first' | sort %}
+{% assign tree = '' | split: '' %}
+
+{% for path in flat %}
+  {% assign parts = path | split: '/' %}
+  {% assign cursor = tree %}
+  {% for part in parts %}
+    {% assign idx = cursor | map: 'name' | index_of: part %}
+    {% if idx == -1 %}
+      {% assign node = part | hash_with_name %}
+      {% assign cursor = cursor | push: node %}
+    {% endif %}
+    {% assign cursor = cursor[last].children %}
+  {% endfor %}
+{% endfor %}
+
+{% include nested-cat-renderer.html nodes=tree %}

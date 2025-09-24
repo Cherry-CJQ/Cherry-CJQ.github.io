@@ -1,0 +1,14 @@
+{% for node in include.nodes %}
+  <li class="list-group-item">
+    <a href="{{ '/categories/' | append: node.full_path | slugify | relative_url }}"
+       class="d-flex justify-content-between">
+      <span>{{ node.name }}</span>
+      <span class="badge">{{ node.post_count }}</span>
+    </a>
+    {% if node.children.size > 0 %}
+      <ul class="list-group mt-2">
+        {% include nested-cat-renderer.html nodes=node.children %}
+      </ul>
+    {% endif %}
+  </li>
+{% endfor %}
