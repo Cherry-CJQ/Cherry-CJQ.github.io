@@ -6,3 +6,37 @@
   padding-left: 1.2rem;
   border-left: 1px dashed var(--border-color);
 }
+
+/* 图片响应式 & 悬停缩放效果 */
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 轻微悬停放大（用于文章内图片） */
+.img-zoom {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transform-origin: center center;
+}
+.img-zoom:hover {
+  transform: scale(1.04);
+  cursor: zoom-in;
+  /* 可选的阴影效果 */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* 可用于包含溢出隐藏的容器，搭配 .img-zoom 使用 */
+.img-wrap {
+  overflow: hidden;
+  display: inline-block;
+}
+
+/* 小屏幕下默认全宽，桌面按 width 属性控制 */
+@media (max-width: 640px) {
+  .img-responsive {
+    width: 100% !important;
+  }
+}
