@@ -65,7 +65,7 @@ Floyd循环检测法要解决什么问题？
 
 ### **3.1Java实现**
 
-```Java
+``` java
 class ListNode {
     int val;
     ListNode next;

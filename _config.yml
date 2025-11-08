@@ -231,3 +231,6 @@ sidebar:
     - tag-panel
     - archive-panel
 
+highlighter: pygments
+
+markdown: redcarpet
