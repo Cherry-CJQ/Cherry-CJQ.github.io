@@ -24,7 +24,7 @@ Floyd循环检测法要解决什么问题？
 
 如果一条链表存在环路，那么一快一慢两个指针一定会相遇，我们假设快指针一次走两步，慢指针一次走一步，最终相遇。那么，相遇时快指针走的距离是慢指针距离的两倍，这其中应该有一些数学关系可以推导，我们来看一下。
 
-![Floyd 循环示意图](../_pictures/Floyd.jpg){: .img-responsive .img-zoom width="60%" style="display: block; margin-left: auto; margin-right: auto;"}
+![alt text](../assets/images/Floyd.jpg)
 
 ### **2.3算法设计**
 
