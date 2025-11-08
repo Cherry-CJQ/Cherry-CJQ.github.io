@@ -232,5 +232,4 @@ sidebar:
     - archive-panel
 
 highlighter: pygments
-
-markdown: redcarpet
+markdown: kramdown
