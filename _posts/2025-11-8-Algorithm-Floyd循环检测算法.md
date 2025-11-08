@@ -74,6 +74,7 @@ class ListNode {
         next = null;
     }
 }
+
 public class CycleDetection {
 
     /**
@@ -108,5 +109,4 @@ public class CycleDetection {
         return null; // 无环
     }
 }
-
 ```
