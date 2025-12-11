@@ -40,6 +40,10 @@
     </ul>
   </nav>
 
+  <div id="site-pv-container" class="w-100 mb-2 small text-muted text-center">
+    本站访问量: <span id="site-pv"><i class="fas fa-spinner fa-spin small"></i></span>
+  </div>
+
   <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
     {% unless site.theme_mode %}
       <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle">
@@ -50,10 +54,6 @@
         <span class="icon-border"></span>
       {% endif %}
     {% endunless %}
-
-    <div id="site-pv-container" class="w-100 mb-2 small text-muted text-center">
-      本站访问量: <span id="site-pv"><i class="fas fa-spinner fa-spin small"></i></span>
-    </div>
 
     {% for entry in site.data.contact %}
       {% case entry.type %}
