@@ -82,12 +82,16 @@ script_includes:
 
         <div>
           <!-- pageviews -->
-            <span id="busuanzi_container_page_pv">
-              <em id="busuanzi_value_page_pv">
-                <i class="fas fa-spinner fa-spin small"></i>
-              </em>
-              {{ site.data.locales[lang].post.pageview_measure }}
+          <span
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="{{ site.data.locales[lang].post.pageview_measure }}"
+          >
+            <i class="far fa-eye fa-fw me-1"></i>
+            <span id="page-pv">
+              <i class="fas fa-spinner fa-spin small"></i>
             </span>
+          </span>
 
           <!-- read time -->
           {% include read-time.html content=content prompt=true lang=lang %}

@@ -1,0 +1,91 @@
+<script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.15.0/dist/av-min.js"></script>
+<script>
+  (function() {
+    function initLeanCloud() {
+      // Check if AV is defined
+      if (typeof AV === 'undefined') {
+        return;
+      }
+
+      AV.init({
+        appId: '{{ site.leancloud.app_id }}',
+        appKey: '{{ site.leancloud.app_key }}',
+        serverURL: '{{ site.leancloud.app_url }}'
+      });
+
+      const Counter = AV.Object.extend('Counter');
+
+      // Helper to display count
+      function showCount(elementId, count) {
+        const el = document.getElementById(elementId);
+        if (el) {
+          el.innerText = count;
+        }
+      }
+
+      // Increment and get Site PV
+      function handleSitePV() {
+        const query = new AV.Query('Counter');
+        query.equalTo('url', 'site_pv');
+        query.first().then((counter) => {
+          if (counter) {
+            counter.increment('time', 1);
+            counter.save().then(() => {
+              showCount('site-pv', counter.get('time'));
+            });
+          } else {
+            const newCounter = new Counter();
+            newCounter.set('title', 'Site PV');
+            newCounter.set('url', 'site_pv');
+            newCounter.set('time', 1);
+            newCounter.save().then(() => {
+              showCount('site-pv', 1);
+            });
+          }
+        }, (error) => {
+          console.error('LeanCloud Site PV Error:', error);
+        });
+      }
+
+      // Increment and get Page PV
+      function handlePagePV() {
+        // Only run on pages that have the page-pv element
+        const pagePvEl = document.getElementById('page-pv');
+        if (!pagePvEl) return;
+
+        const url = window.location.pathname;
+        const title = document.title;
+        const query = new AV.Query('Counter');
+
+        query.equalTo('url', url);
+        query.first().then((counter) => {
+          if (counter) {
+            counter.increment('time', 1);
+            counter.save().then(() => {
+              showCount('page-pv', counter.get('time'));
+            });
+          } else {
+            const newCounter = new Counter();
+            newCounter.set('title', title);
+            newCounter.set('url', url);
+            newCounter.set('time', 1);
+            newCounter.save().then(() => {
+              showCount('page-pv', 1);
+            });
+          }
+        }, (error) => {
+          console.error('LeanCloud Page PV Error:', error);
+        });
+      }
+
+      handleSitePV();
+      handlePagePV();
+    }
+
+    // Run on standard load
+    document.addEventListener('DOMContentLoaded', initLeanCloud);
+    
+    // Support for Pjax/Turbolinks if present in the future
+    // document.addEventListener('pjax:complete', initLeanCloud);
+  })();
+</script>

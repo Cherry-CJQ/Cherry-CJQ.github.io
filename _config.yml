@@ -233,3 +233,13 @@ sidebar:
 
 highlighter: pygments
 markdown: kramdown
+
+categories:
+  category_measure: 个分类
+  post_measure: 篇文章
+
+# LeanCloud Analytics
+leancloud:
+  app_id: mDvXe27EXKQOIHAZrXteLKLo-gzGzoHsz
+  app_key: GUsmkUZxW0n07XrVQ2cYIDgY
+  app_url: https://mdvxe27e.lc-cn-n1-shared.com
