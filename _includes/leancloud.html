@@ -2,7 +2,7 @@
 <script>
   (function() {
     function initLeanCloud() {
-      // Check if AV is defined
+      /* Check if AV is defined */
       if (typeof AV === 'undefined') {
         return;
       }
@@ -15,7 +15,7 @@
 
       const Counter = AV.Object.extend('Counter');
 
-      // Helper to display count
+      /* Helper to display count */
       function showCount(elementId, count) {
         const el = document.getElementById(elementId);
         if (el) {
@@ -23,7 +23,7 @@
         }
       }
 
-      // Increment and get Site PV
+      /* Increment and get Site PV */
       function handleSitePV() {
         const query = new AV.Query('Counter');
         query.equalTo('url', 'site_pv');
@@ -47,9 +47,9 @@
         });
       }
 
-      // Increment and get Page PV
+      /* Increment and get Page PV */
       function handlePagePV() {
-        // Only run on pages that have the page-pv element
+        /* Only run on pages that have the page-pv element */
         const pagePvEl = document.getElementById('page-pv');
         if (!pagePvEl) return;
 
@@ -82,10 +82,7 @@
       handlePagePV();
     }
 
-    // Run on standard load
+    /* Run on standard load */
     document.addEventListener('DOMContentLoaded', initLeanCloud);
-    
-    // Support for Pjax/Turbolinks if present in the future
-    // document.addEventListener('pjax:complete', initLeanCloud);
   })();
 </script>
