@@ -77,7 +77,15 @@
           return;
         }
 
-        const url = window.location.pathname;
+        /* Normalize URL: remove 'index.html' and trailing slash */
+        let url = window.location.pathname;
+        url = url.replace(/index\.html$/, '');
+        url = url.replace(/\/$/, '');
+        /* If root path, keep it as slash or empty string consistent with your logic, 
+           but for posts typically it ends with the post slug. 
+           Let's just ensure consistent handling. */
+        if (url === '') url = '/'; 
+
         const title = document.title;
         console.log('LeanCloud: Handling Page PV for:', url);
 
