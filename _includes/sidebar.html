@@ -51,6 +51,10 @@
       {% endif %}
     {% endunless %}
 
+    <div id="site-pv-container" class="w-100 mb-2 small text-muted text-center">
+      本站访问量: <span id="site-pv"><i class="fas fa-spinner fa-spin small"></i></span>
+    </div>
+
     {% for entry in site.data.contact %}
       {% case entry.type %}
         {% when 'github', 'twitter' %}
@@ -91,11 +95,6 @@
         </a>
       {% endif %}
     {% endfor %}
-
-    <span id="site-pv-container" class="d-inline-flex align-items-center ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="本站访问量">
-      <i class="far fa-eye fa-fw me-1"></i>
-      <span id="site-pv"><i class="fas fa-spinner fa-spin small"></i></span>
-    </span>
 
   </div>
   <!-- .sidebar-bottom -->

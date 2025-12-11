@@ -56,6 +56,12 @@
           } else {
             console.log('LeanCloud: Site PV record not found, creating new...');
             const newCounter = new Counter();
+            /* Set ACL for public access */
+            const acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newCounter.setACL(acl);
+            
             newCounter.set('title', 'Site PV');
             newCounter.set('url', 'site_pv');
             newCounter.set('time', 1);
@@ -101,6 +107,12 @@
           } else {
             console.log('LeanCloud: Page PV record not found, creating new...');
             const newCounter = new Counter();
+            /* Set ACL for public access */
+            const acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newCounter.setACL(acl);
+
             newCounter.set('title', title);
             newCounter.set('url', url);
             newCounter.set('time', 1);
