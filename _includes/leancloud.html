@@ -2,16 +2,31 @@
 <script>
   (function() {
     function initLeanCloud() {
+      console.log('LeanCloud: Starting initialization...');
+      
       /* Check if AV is defined */
       if (typeof AV === 'undefined') {
+        console.error('LeanCloud: AV object is undefined. SDK not loaded.');
         return;
       }
 
-      AV.init({
-        appId: '{{ site.leancloud.app_id }}',
-        appKey: '{{ site.leancloud.app_key }}',
-        serverURL: '{{ site.leancloud.app_url }}'
-      });
+      const appId = '{{ site.leancloud.app_id }}';
+      const appKey = '{{ site.leancloud.app_key }}';
+      const serverURL = '{{ site.leancloud.app_url }}';
+
+      console.log('LeanCloud: Config - AppID:', appId, 'ServerURL:', serverURL);
+
+      try {
+        AV.init({
+          appId: appId,
+          appKey: appKey,
+          serverURL: serverURL
+        });
+        console.log('LeanCloud: Initialized successfully.');
+      } catch (e) {
+        console.error('LeanCloud: Initialization failed:', e);
+        return;
+      }
 
       const Counter = AV.Object.extend('Counter');
 
@@ -19,21 +34,27 @@
       function showCount(elementId, count) {
         const el = document.getElementById(elementId);
         if (el) {
+          console.log(`LeanCloud: Updating ${elementId} with count ${count}`);
           el.innerText = count;
+        } else {
+          console.warn(`LeanCloud: Element ${elementId} not found in DOM.`);
         }
       }
 
       /* Increment and get Site PV */
       function handleSitePV() {
+        console.log('LeanCloud: Handling Site PV...');
         const query = new AV.Query('Counter');
         query.equalTo('url', 'site_pv');
         query.first().then((counter) => {
           if (counter) {
+            console.log('LeanCloud: Site PV record found, incrementing...');
             counter.increment('time', 1);
             counter.save().then(() => {
               showCount('site-pv', counter.get('time'));
             });
           } else {
+            console.log('LeanCloud: Site PV record not found, creating new...');
             const newCounter = new Counter();
             newCounter.set('title', 'Site PV');
             newCounter.set('url', 'site_pv');
@@ -43,7 +64,7 @@
             });
           }
         }, (error) => {
-          console.error('LeanCloud Site PV Error:', error);
+          console.error('LeanCloud: Site PV Query Error:', error);
         });
       }
 
@@ -51,20 +72,26 @@
       function handlePagePV() {
         /* Only run on pages that have the page-pv element */
         const pagePvEl = document.getElementById('page-pv');
-        if (!pagePvEl) return;
+        if (!pagePvEl) {
+          console.log('LeanCloud: Page PV element not found (not a post page?)');
+          return;
+        }
 
         const url = window.location.pathname;
         const title = document.title;
-        const query = new AV.Query('Counter');
+        console.log('LeanCloud: Handling Page PV for:', url);
 
+        const query = new AV.Query('Counter');
         query.equalTo('url', url);
         query.first().then((counter) => {
           if (counter) {
+            console.log('LeanCloud: Page PV record found, incrementing...');
             counter.increment('time', 1);
             counter.save().then(() => {
               showCount('page-pv', counter.get('time'));
             });
           } else {
+            console.log('LeanCloud: Page PV record not found, creating new...');
             const newCounter = new Counter();
             newCounter.set('title', title);
             newCounter.set('url', url);
@@ -74,7 +101,7 @@
             });
           }
         }, (error) => {
-          console.error('LeanCloud Page PV Error:', error);
+          console.error('LeanCloud: Page PV Query Error:', error);
         });
       }
 
